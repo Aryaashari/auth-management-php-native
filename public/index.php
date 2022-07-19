@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__."/../vendor/autoload.php";
 
-use App\Router;
-use Controller\HomeController;
+use Login\Management\App\Router;
+use Login\Management\Controller\HomeController;
 
 Router::add("GET", "/", HomeController::class, 'index');
 

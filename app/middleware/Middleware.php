@@ -1,6 +1,6 @@
 <?php
 
-namespace Middleware;
+namespace Login\Management\Middleware;
 
 interface Middleware {
     function boot():void;

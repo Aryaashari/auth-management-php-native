@@ -1,8 +1,8 @@
 <?php 
 
-namespace Controller;
+namespace Login\Management\Controller;
 
-use App\View;
+use Login\Management\App\View;
 
 class HomeController {
 
