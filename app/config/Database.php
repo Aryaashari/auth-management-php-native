@@ -21,4 +21,21 @@ class Database {
 
     }
 
+    public static function startTransaction() : void {
+        self::$db->beginTransaction();
+    }
+
+    public static function commitTransaction() : void {
+        self::$db->commit();
+    }
+
+    public static function rollbackTransaction() : void {
+        self::$db->rollBack();
+    }
+
+
+    public static function deleteAll($table = "users") : void {
+        $stmt = self::$db->query("DELETE FROM $table");
+    }
+
 }

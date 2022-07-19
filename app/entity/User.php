@@ -5,12 +5,12 @@ namespace Login\Management\Entity;
 class User {
 
     public function __construct(
-        private int $id,
+        private ?int $id,
         private string $name,
         private string $username,
         private string $password,
-        private \DateTime $createTime, 
-        private \DateTime $updateTime 
+        private ?string $createTime, 
+        private ?string $updateTime 
     ){}
 
     // Gettter
@@ -30,12 +30,26 @@ class User {
         return $this->password;
     }
 
-    public function getCreateTime() : \DateTime {
+    public function getCreateTime() : string {
         return $this->createTime;
     }
 
-    public function getUpdateTime() : \DateTime {
+    public function getUpdateTime() : string {
         return $this->updateTime;
+    }
+
+
+    // Setter
+    public function setId(int $id) : void {
+        $this->id = $id;
+    }
+
+    public function setCreateTime(string $dateTime) : void {
+        $this->createTime = $dateTime;
+    }
+
+    public function setUpdateTime(string $dateTime) : void {
+        $this->updateTime = $dateTime;
     }
 
 
