@@ -11,7 +11,7 @@
     
     <div class="navbar bg-base-100" data-theme="bumblebee">
         <div class="flex-1">
-          <a class="btn btn-ghost normal-case text-xl">Auth Management</a>
+          <a class="btn btn-ghost normal-case text-xl" href="/">Auth Management</a>
         </div>
         <div class="flex-none gap-2">
           <div class="form-control">
