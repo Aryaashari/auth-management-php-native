@@ -47,13 +47,4 @@ class UserRepository {
         }
     }
 
-    // public function saveValidation(User $user) : void {
-    //     $stmt = $this->dbConn->prepare("SELECT username FROM users WHERE username=?");
-    //     $stmt->execute([$user->getUsername()]);
-    
-    //     if ($stmt->fetch()) {
-    //         throw new UserException("Username '{$user->getUsername()}' telah terdaftar!");
-    //     }
-    // }
-
 }
