@@ -78,4 +78,21 @@ class UserServiceTest extends TestCase {
         $user = $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "12345678", "12345678"));
     }
 
+    public function testRegisterPasswordValidation() {
+
+        // Success
+        // $user = $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "12345678", "12345678"));
+        // var_dump($user);
+        // $this->assertIsObject($user);
+
+        // Minimal 8 karakter
+        // $this->expectExceptionMessage("Password minimal 8 karakter!");
+        // $user = $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "1234567", "12345678"));
+
+        // Confirm password harus sesuai dengan password
+        $this->expectExceptionMessage("Konfirmasi password tidak sesuai!");
+        $user = $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "123456798", "12345678"));
+
+    }
+
 }

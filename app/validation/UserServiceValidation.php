@@ -34,7 +34,7 @@ class UserServiceValidation {
         }
 
         // Minimal 3 dan maksimal 10
-        if (strlen(trim($username)) < 3 || strlen(trim($username)) > 10) {
+        if (strlen($username) < 3 || strlen($username) > 10) {
             echo "Hallo";
             throw new UserException("Username minimal 3 dan maksimal 10 karakter!");
         }
@@ -44,6 +44,18 @@ class UserServiceValidation {
         if (!is_null($user)) {
             echo "OKKKKK";
             throw new UserException("Username '$username' telah terdaftar!");
+        }
+
+
+        /* -- Validasi Password -- */
+        // Minimal 8 karakter
+        if (strlen($password) < 8) {
+            throw new UserException("Password minimal 8 karakter!");
+        }
+
+        // Confirm Password harus sama dengan Password
+        if ($confirmPassword !== $password) {
+            throw new UserException("Konfirmasi password tidak sesuai!");
         }
 
     } 
