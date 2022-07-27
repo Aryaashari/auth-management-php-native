@@ -18,6 +18,15 @@ class UserRepository {
         $this->dbConn = $db;
     }
 
+    public function findByUsername(string $username) : ?User {
+        $stmt = $this->dbConn->prepare("SELECT id, name, username, password FROM users WHERE username=?");
+        $stmt->execute([$username]);
+        if ($user = $stmt->fetch()) {
+            return new User(null,$user["name"],$user["username"], $user["password"]);
+        }
+        return null;
+    }
+
 
     public function save(User $user) : User {
         

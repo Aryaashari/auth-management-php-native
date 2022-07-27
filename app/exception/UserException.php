@@ -1,6 +1,6 @@
 <?php
 
-namespace Login\Management\Execption;
+namespace Login\Management\Exception;
 
 
 class UserException extends \Exception {}

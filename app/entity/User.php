@@ -5,12 +5,12 @@ namespace Login\Management\Entity;
 class User {
 
     public function __construct(
-        private ?int $id,
+        private ?int $id = null,
         private string $name,
         private string $username,
         private string $password,
-        private ?string $createTime, 
-        private ?string $updateTime 
+        private ?string $createTime = null, 
+        private ?string $updateTime = null 
     ){}
 
     // Gettter
