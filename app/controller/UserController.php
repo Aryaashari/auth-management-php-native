@@ -26,18 +26,21 @@ class UserController {
 
     public function register() {
 
+        $name = htmlspecialchars(trim($_POST["name"]));
+        $username = htmlspecialchars(trim($_POST["username"]));
+        $password = htmlspecialchars(trim($_POST["password"]));
+        $confirmPassword = htmlspecialchars(trim($_POST["confirmPassword"]));
+        $request = new UserRegisterRequest($name, $username, $password, $confirmPassword);
         try {
-            $name = htmlspecialchars(trim($_POST["name"]));
-            $username = htmlspecialchars(trim($_POST["username"]));
-            $password = htmlspecialchars(trim($_POST["password"]));
-            $confirmPassword = htmlspecialchars(trim($_POST["confirmPassword"]));
-
-            $request = new UserRegisterRequest($name, $username, $password, $confirmPassword);
             $this->userService->register($request);
-            header("location: /login");
+            View::render("auth/register.php", [
+                "success" => true
+            ]);
         } catch(UserException $e) {
-            echo $e->getMessage();
-            exit();
+            $errMessage = $e->getMessage();
+            View::render("auth/register.php", [
+                "error" => $errMessage
+            ]);
         }
 
 
