@@ -3,6 +3,7 @@
 namespace Login\Management\Validation;
 
 use Login\Management\Exception\UserException;
+use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Repository\UserRepository;
 
@@ -59,6 +60,10 @@ class UserServiceValidation {
         }
 
     } 
+
+
+
+    public static function LoginValidation(UserLoginRequest $request, UserRepository $userRepo) : void {}
 
 
 }

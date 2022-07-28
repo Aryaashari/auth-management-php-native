@@ -5,6 +5,8 @@ namespace Login\Management\Service;
 use Login\Management\Entity\User;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Model\UserRegisterResponse;
+use Login\Management\Model\UserLoginRequest;
+use Login\Management\Model\UserLoginResponse;
 use Login\Management\Repository\UserRepository;
 use Login\Management\Validation\UserServiceValidation;
 
@@ -31,6 +33,16 @@ class UserService {
         $user = $this->repo->save($user);
 
         $response = new UserRegisterResponse($user->getId(), $user->getName(), $user->getUsername());
+        return $response;
+
+    }
+
+
+    public function login(UserLoginRequest $request) : UserLoginResponse {
+
+        UserServiceValidation::LoginValidation($request, $this->repo);
+
+        $response = new UserLoginResponse();
         return $response;
 
     }
