@@ -5,6 +5,7 @@ namespace Login\Management\Controller;
 use Login\Management\App\View;
 use Login\Management\Config\Database;
 use Login\Management\Exception\UserException;
+use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Repository\UserRepository;
 use Login\Management\Service\UserService;
@@ -50,6 +51,24 @@ class UserController {
 
     public function loginView()  : void{
         View::render("auth/login.php");
+    }
+
+    public function login() : void {
+
+        $username = htmlspecialchars(trim($_POST["username"]));
+        $password = htmlspecialchars(trim($_POST["password"]));
+        $isRemember = (isset($_POST["isRemember"])) ? true : false;
+        $request = new UserLoginRequest($username, $password, $isRemember);
+
+        try {
+            $response = $this->userService->login($request);
+            header("location: /");
+        } catch(UserException $e) {
+            View::render("auth/login.php", [
+                "error" => $e->getMessage()
+            ]);
+        }
+
     }
 
 }

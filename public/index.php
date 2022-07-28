@@ -15,5 +15,6 @@ Router::add("GET", "/register", UserController::class, "registerView");
 Router::add("POST", "/register", UserController::class, "register");
 
 Router::add("GET", "/login", UserController::class, "loginView");
+Router::add("POST", "/login", UserController::class, "login");
 
 Router::run();
