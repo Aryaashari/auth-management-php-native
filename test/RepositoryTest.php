@@ -16,6 +16,7 @@ class RepositoryTest extends TestCase {
     public function setUp():void {
         $this->dbConn = Database::getConnection();
         $this->repo = new UserRepository($this->dbConn);
+        Database::deleteAll();
     }
 
 
@@ -38,9 +39,24 @@ class RepositoryTest extends TestCase {
     }
 
     public function testSaveFailed() {
-        Database::deleteAll();
+        
         $this->expectException(\PDOException::class);
         $user = $this->repo->save(new User(null, "Arya Ashari", "arya", "12345678", null, null));
+    }
+
+    
+    public function testEdit() {
+
+        $user = $this->repo->save(new user(null, "Arya Ashari", "arya", "12345678", null, null));
+        var_dump($user);
+
+        sleep(10);
+
+        $userUpdate = $this->repo->edit(new user($user->getId(), "Arya2", "aryaas", "12345678", $user->getCreateTime()));
+        var_dump($userUpdate);
+
+        $this->assertIsObject($userUpdate);
+
     }
 
 

@@ -50,10 +50,30 @@ class UserRepository {
             return $user;
 
         } catch (\Exception $e) {
-            echo $e;
             Database::rollbackTransaction();
             throw $e;
         }
+    }
+
+    public function edit(User $user) : User {
+
+        try {
+
+            Database::startTransaction();
+            $dateNow = date('Y-m-d H:i:s');
+            $stmt = $this->dbConn->prepare("UPDATE users SET name=?, username=?, password=?, update_time=? WHERE id=?");
+            $stmt->execute([$user->getName(), $user->getUsername(), $user->getPassword(), $dateNow, $user->getId()]);
+            
+            $user->setUpdateTime($dateNow);
+
+            Database::commitTransaction();
+            return $user;
+
+        } catch(\Exception $e) {
+            Database::rollbackTransaction();
+            throw $e;
+        }
+
     }
 
 }
