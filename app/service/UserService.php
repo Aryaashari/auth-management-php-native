@@ -46,10 +46,15 @@ class UserService {
 
     public function login(UserLoginRequest $request) : UserLoginResponse {
 
-        UserServiceValidation::LoginValidation($request, $this->repo);
+        try {
 
-        $response = new UserLoginResponse();
-        return $response;
+            $user = UserServiceValidation::LoginValidation($request, $this->repo);
+            
+            $response = new UserLoginResponse($user);
+            return $response;
+        } catch(UserException $e) {
+            throw $e;
+        }
 
     }
 

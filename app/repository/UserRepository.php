@@ -19,10 +19,10 @@ class UserRepository {
     }
 
     public function findByUsername(string $username) : ?User {
-        $stmt = $this->dbConn->prepare("SELECT id, name, username, password FROM users WHERE username=?");
+        $stmt = $this->dbConn->prepare("SELECT id, name, username, password,create_time,update_time FROM users WHERE username=?");
         $stmt->execute([$username]);
         if ($user = $stmt->fetch()) {
-            return new User(null,$user["name"],$user["username"], $user["password"]);
+            return new User($user["id"],$user["name"],$user["username"], $user["password"], $user["create_time"], $user["update_time"]);
         }
         return null;
     }

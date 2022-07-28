@@ -6,6 +6,7 @@ require_once __DIR__."./../vendor/autoload.php";
 
 use Login\Management\Config\Database;
 use Login\Management\Exception\UserException;
+use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Repository\UserRepository;
 use Login\Management\Service\UserService;
@@ -92,6 +93,33 @@ class UserServiceTest extends TestCase {
         // Confirm password harus sesuai dengan password
         $this->expectExceptionMessage("Konfirmasi password tidak sesuai!");
         $user = $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "123456798", "12345678"));
+
+    }
+
+
+
+    public function testLoginSuccess() {
+        
+        $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "12345678", "12345678"));
+        $this->service->register(new UserRegisterRequest("Arya Ashari", "arya", "password", "password"));
+
+        $user = $this->service->login(new UserLoginRequest("aryaashari", "12345678"));
+        $user2 = $this->service->login(new UserLoginRequest("arya", "password"));
+        var_dump($user);
+        var_dump($user2);
+        $this->assertIsObject($user);
+        $this->assertIsObject($user2);
+
+    }
+
+    public function testLoginFailed() {
+        $this->service->register(new UserRegisterRequest("Arya Ashari", "aryaashari", "12345678", "12345678"));
+        $this->service->register(new UserRegisterRequest("Arya Ashari", "arya", "password", "password"));
+
+        $this->expectException(UserException::class);
+        $user = $this->service->login(new UserLoginRequest("aryaashari", "12345678"));
+        $user2 = $this->service->login(new UserLoginRequest("username salah", "password"));
+        $user3 = $this->service->login(new UserLoginRequest("username salah", "salah"));
 
     }
 

@@ -2,6 +2,7 @@
 
 namespace Login\Management\Validation;
 
+use Login\Management\Entity\User;
 use Login\Management\Exception\UserException;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
@@ -61,7 +62,26 @@ class UserServiceValidation {
 
 
 
-    public static function LoginValidation(UserLoginRequest $request, UserRepository $userRepo) : void {}
+    public static function LoginValidation(UserLoginRequest $request, UserRepository $userRepo) : User {
+
+        /* -- Validasi Username dan Password -- */
+        $user = $userRepo->findByUsername($request->getUsername());
+        
+        // Usernya ada atau tidak
+        if (is_null($user)) {
+
+            throw new UserException("Username atau password salah!");
+
+        } else {
+            // Cek apakah passwordnya sesuai
+            if (!password_verify($request->getPassword(), $user->getPassword())) {
+                throw new UserException("Username atau password salah!");
+            }
+        }
+
+        return $user;
+
+    }
 
 
 }
