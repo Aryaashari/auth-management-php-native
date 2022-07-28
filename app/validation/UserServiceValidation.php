@@ -36,14 +36,12 @@ class UserServiceValidation {
 
         // Minimal 3 dan maksimal 10
         if (strlen($username) < 3 || strlen($username) > 10) {
-            echo "Hallo";
             throw new UserException("Username minimal 3 dan maksimal 10 karakter!");
         }
 
         // Tidak boleh sama (unik)
         $user = $userRepo->findByUsername($username);
         if (!is_null($user)) {
-            echo "OKKKKK";
             throw new UserException("Username '$username' telah terdaftar!");
         }
 

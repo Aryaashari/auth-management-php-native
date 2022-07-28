@@ -15,32 +15,32 @@
             <div class="card-body">
                 <h2 class="font-bold text-center text-lg">REGISTER</h2>
 
-                <form action="#" class="w-full">
+                <form action="/register" method="POST" class="w-full">
                     <div class="form-control mb-3">
                         <label class="input-group">
                             <span>Name</span>
-                            <input type="text" class="input input-bordered w-full" />
+                            <input type="text" name="name" class="input input-bordered w-full" />
                         </label>
                     </div>
 
                     <div class="form-control mb-3">
                         <label class="input-group">
                             <span>Username</span>
-                            <input type="text" class="input input-bordered w-full" />
+                            <input type="text" name="username" class="input input-bordered w-full" />
                         </label>
                     </div>
 
                     <div class="form-control w-full mb-3">
                         <label class="input-group">
                             <span>Password</span>
-                            <input type="password" class="input input-bordered w-full" />
+                            <input type="password" name="password" class="input input-bordered w-full" />
                         </label>
                     </div>
 
                     <div class="form-control w-full mb-3">
                         <label class="input-group">
                             <span>Confirm Password</span>
-                            <input type="password" class="input input-bordered w-full" />
+                            <input type="password" name="confirmPassword" class="input input-bordered w-full" />
                         </label>
                     </div>
                     

@@ -3,6 +3,7 @@
 namespace Login\Management\Service;
 
 use Login\Management\Entity\User;
+use Login\Management\Exception\UserException;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Model\UserRegisterResponse;
 use Login\Management\Model\UserLoginRequest;
@@ -21,19 +22,24 @@ class UserService {
 
     public function register(UserRegisterRequest $request) : UserRegisterResponse {
 
-        UserServiceValidation::RegisterValidation($request, $this->repo);
+        try {
+            UserServiceValidation::RegisterValidation($request, $this->repo);
+    
+            $user = new User(
+                null,
+                $request->getName(),
+                $request->getUsername(),
+                password_hash($request->getPassword(), PASSWORD_BCRYPT)
+            );
+    
+            $user = $this->repo->save($user);
+    
+            $response = new UserRegisterResponse($user->getId(), $user->getName(), $user->getUsername());
+            return $response;
+        } catch(UserException $e) {
+            throw $e;
+        }
 
-        $user = new User(
-            null,
-            $request->getName(),
-            $request->getUsername(),
-            password_hash($request->getPassword(), PASSWORD_BCRYPT)
-        );
-
-        $user = $this->repo->save($user);
-
-        $response = new UserRegisterResponse($user->getId(), $user->getName(), $user->getUsername());
-        return $response;
 
     }
 
