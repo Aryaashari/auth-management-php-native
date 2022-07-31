@@ -8,17 +8,20 @@ use Login\Management\Exception\UserException;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Repository\UserRepository;
+use Login\Management\Service\SessionService;
 use Login\Management\Service\UserService;
 
 class UserController {
     
     private UserRepository $userRepo;
     private UserService $userService;
+    private SessionService $sesService;
 
     public function __construct()
     {
         $this->userRepo = new UserRepository(Database::getConnection());
         $this->userService = new UserService($this->userRepo);
+        $this->sesService = new SessionService();
     }
 
     public function registerView()  : void{
@@ -68,6 +71,13 @@ class UserController {
                 "error" => $e->getMessage()
             ]);
         }
+
+    }
+
+    public function logout() : void {
+
+        $this->sesService->destroy();
+        header("location: /login");
 
     }
 

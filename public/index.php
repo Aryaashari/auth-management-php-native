@@ -17,4 +17,6 @@ Router::add("POST", "/register", UserController::class, "register", [AuthMiddlew
 Router::add("GET", "/login", UserController::class, "loginView", [AuthMiddleware::class]);
 Router::add("POST", "/login", UserController::class, "login", [AuthMiddleware::class]);
 
+Router::add("POST", "/logout", UserController::class, "logout", [AuthMiddleware::class]);
+
 Router::run();
