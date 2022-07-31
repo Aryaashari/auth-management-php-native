@@ -5,16 +5,16 @@ use Login\Management\App\Router;
 use Login\Management\Config\Database;
 use Login\Management\Controller\HomeController;
 use Login\Management\Controller\UserController;
-
+use Login\Management\Middleware\AuthMiddleware;
 
 Database::getConnection("production");
-Router::add("GET", "/", HomeController::class, 'index');
+Router::add("GET", "/", HomeController::class, 'index', [AuthMiddleware::class]);
 
 // User Controller
-Router::add("GET", "/register", UserController::class, "registerView");
-Router::add("POST", "/register", UserController::class, "register");
+Router::add("GET", "/register", UserController::class, "registerView", [AuthMiddleware::class]);
+Router::add("POST", "/register", UserController::class, "register", [AuthMiddleware::class]);
 
-Router::add("GET", "/login", UserController::class, "loginView");
-Router::add("POST", "/login", UserController::class, "login");
+Router::add("GET", "/login", UserController::class, "loginView", [AuthMiddleware::class]);
+Router::add("POST", "/login", UserController::class, "login", [AuthMiddleware::class]);
 
 Router::run();
