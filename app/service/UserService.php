@@ -14,10 +14,12 @@ use Login\Management\Validation\UserServiceValidation;
 class UserService {
 
     private UserRepository $repo;
+    private SessionService $sesService;
 
     public function __construct(UserRepository $repo) 
     {
         $this->repo = $repo;
+        $this->sesService = new SessionService();
     }
 
     public function register(UserRegisterRequest $request) : UserRegisterResponse {
@@ -35,6 +37,7 @@ class UserService {
             $user = $this->repo->save($user);
     
             $response = new UserRegisterResponse($user->getId(), $user->getName(), $user->getUsername());
+
             return $response;
         } catch(UserException $e) {
             throw $e;
@@ -51,6 +54,9 @@ class UserService {
             $user = UserServiceValidation::LoginValidation($request, $this->repo);
             
             $response = new UserLoginResponse($user);
+
+            $session = $this->sesService->create($user->getId(), $request->getIsRemember());
+
             return $response;
         } catch(UserException $e) {
             throw $e;
