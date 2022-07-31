@@ -5,13 +5,13 @@ namespace Login\Management\Entity;
 class Session {
 
     public function __construct(
-        private int $id,
+        private string $id,
         private int $user_id
     ){}
 
 
     // getter
-    public function getId() : int {
+    public function getId() : string {
         return $this->id;
     }
 

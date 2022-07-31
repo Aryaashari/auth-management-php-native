@@ -20,18 +20,15 @@ class SessionRepositoryTest extends TestCase {
         $this->dbConn = Database::getConnection();
         $this->repo = new SessionRepository($this->dbConn);
         $this->userRepo = new UserRepository($this->dbConn);
-        Database::deleteAll();
     }
 
     public function testSaveSuccess() {
 
-        $user = $this->userRepo->save(new User(null, "Arya Ashari", "arya", "12345678"));
+        $user = $this->userRepo->save(new User(null, "Arya Ashari", "aryaa", "12345678"));
         var_dump($user);
-        $session = $this->repo->save($user->getId());
-        var_dump($session);
+        $this->repo->save(new Session(uniqid(), $user->getId()));
 
         $this->assertIsObject($user);
-        $this->assertIsObject($session);
 
     }
 

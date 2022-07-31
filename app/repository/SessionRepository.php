@@ -14,16 +14,13 @@ class SessionRepository {
     }
 
 
-    public function save(int $userId) : Session {
+    public function save(Session $session) : void {
 
         try {
 
-            $stmt = $this->dbConn->prepare("INSERT INTO sessions(user_id) VALUES (?)");
-            $stmt->execute([$userId]);
+            $stmt = $this->dbConn->prepare("INSERT INTO sessions(id,user_id) VALUES (?,?)");
+            $stmt->execute([$session->getId(), $session->getUserId()]);
             $id = $this->dbConn->lastInsertId();
-    
-            $session = new Session($id, $userId);
-            return $session;
         } catch(\Exception $err) {
             throw $err;
         }
