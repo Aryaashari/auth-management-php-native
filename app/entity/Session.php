@@ -6,8 +6,7 @@ class Session {
 
     public function __construct(
         private int $id,
-        private int $user_id,
-        private string $session_key,
+        private int $user_id
     ){}
 
 
@@ -20,7 +19,13 @@ class Session {
         return $this->user_id;
     }
 
-    public function getSessionKey() : string {
-        return $this->session_key;
-    }
+
+    // Setter
+    // public function setId(int $id) : void {
+    //     $this->id = $id;
+    // }
+
+    // public function setUserId(int $id) : void {
+    //     $this->user_id = $id;
+    // }
 }
