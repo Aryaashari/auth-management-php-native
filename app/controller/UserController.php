@@ -67,7 +67,10 @@ class UserController {
 
         try {
             $response = $this->userService->login($request);
-            header("location: /");
+            // header("location: /");
+            View::render("home.php", [
+                "success" => "Selamat, anda berhasil login!"
+            ]);
         } catch(UserException $e) {
             View::render("auth/login.php", [
                 "error" => $e->getMessage()

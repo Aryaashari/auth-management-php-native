@@ -9,6 +9,20 @@
 </head>
 <body>
     
+
+    <?php if (isset($model["success"])) : ?>
+    <input type="checkbox" checked id="my-modal" class="modal-toggle" />
+    <div class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg"><?= $model["success"] ?></h3>
+            <div class="modal-action">
+                <!-- <label onclick="window.location.href = '/login';" class="btn">Login</label> -->
+                <label for="my-modal" class="btn">Yay!</label>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    
     <div class="navbar bg-base-100" data-theme="bumblebee">
         <div class="flex-1">
           <a class="btn btn-ghost normal-case text-xl" href="/">Auth Management</a>
