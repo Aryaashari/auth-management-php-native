@@ -7,6 +7,7 @@ use Login\Management\Config\Database;
 use Login\Management\Exception\UserException;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
+use Login\Management\Repository\SessionRepository;
 use Login\Management\Repository\UserRepository;
 use Login\Management\Service\SessionService;
 use Login\Management\Service\UserService;
@@ -19,9 +20,10 @@ class UserController {
 
     public function __construct()
     {
+        $sesRepo = new SessionRepository(Database::getConnection());
         $this->userRepo = new UserRepository(Database::getConnection());
-        $this->userService = new UserService($this->userRepo);
-        $this->sesService = new SessionService();
+        $this->userService = new UserService($this->userRepo, $sesRepo);
+        $this->sesService = new SessionService($sesRepo);
     }
 
     public function registerView()  : void{

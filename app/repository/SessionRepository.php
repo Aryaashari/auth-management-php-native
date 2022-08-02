@@ -27,5 +27,12 @@ class SessionRepository {
 
     }
 
+    public function remove(string $sesId) : void {
+
+        $stmt = $this->dbConn->prepare("DELETE FROM sessions WHERE id=?");
+        $stmt->execute([$sesId]);
+
+    }
+
 
 }

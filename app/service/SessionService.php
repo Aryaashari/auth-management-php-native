@@ -12,9 +12,9 @@ class SessionService {
     public static $cookieName = "X-SESSION";
     private SessionRepository $repo;
     
-    public function __construct()
+    public function __construct(SessionRepository $repo)
     {
-        $this->repo = new SessionRepository(Database::getConnection());
+        $this->repo = $repo;
     }
 
     public function create(int $userId, bool $isRemember) : Session {
@@ -42,6 +42,7 @@ class SessionService {
     public function destroy() : void {
         $currentSession = $this->current();
         if (!is_null($currentSession)) {
+            $this->repo->remove($currentSession);
             setcookie(self::$cookieName, null, -1, "/");
         }
     }
