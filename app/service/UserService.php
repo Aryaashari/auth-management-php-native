@@ -20,7 +20,7 @@ class UserService {
     public function __construct(UserRepository $repo, SessionRepository $sesRepo) 
     {
         $this->repo = $repo;
-        $this->sesService = new SessionService($sesRepo);
+        $this->sesService = new SessionService($sesRepo, $this->repo);
     }
 
     public function register(UserRegisterRequest $request) : UserRegisterResponse {

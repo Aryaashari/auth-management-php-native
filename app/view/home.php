@@ -1,3 +1,10 @@
+<?php 
+
+// var_dump(substr($model["user"]->getUsername(),0,2));
+// exit();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -10,7 +17,9 @@
 <body>
     
 
-    <?php if (isset($model["success"])) : ?>
+    <?php
+
+ if (isset($model["success"])) : ?>
     <input type="checkbox" checked id="my-modal" class="modal-toggle" />
     <div class="modal">
         <div class="modal-box">
@@ -34,7 +43,9 @@
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
               <div class="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" />
+                <!-- <img src="https://placeimg.com/80/80/people" /> -->
+                <div class="bg-green-600 h-full">
+                </div>
               </div>
             </label>
             <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">

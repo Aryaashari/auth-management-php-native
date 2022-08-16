@@ -23,7 +23,7 @@ class UserController {
         $sesRepo = new SessionRepository(Database::getConnection());
         $this->userRepo = new UserRepository(Database::getConnection());
         $this->userService = new UserService($this->userRepo, $sesRepo);
-        $this->sesService = new SessionService($sesRepo);
+        $this->sesService = new SessionService($sesRepo, $this->userRepo);
     }
 
     public function registerView()  : void{
@@ -38,9 +38,10 @@ class UserController {
         $confirmPassword = htmlspecialchars(trim($_POST["confirmPassword"]));
         $request = new UserRegisterRequest($name, $username, $password, $confirmPassword);
         try {
-            $this->userService->register($request);
+            $response = $this->userService->register($request);
             View::render("auth/register.php", [
-                "success" => true
+                "success" => true,
+                "user" => $response
             ]);
         } catch(UserException $e) {
             $errMessage = $e->getMessage();

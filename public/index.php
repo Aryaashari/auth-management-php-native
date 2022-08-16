@@ -6,6 +6,7 @@ use Login\Management\Config\Database;
 use Login\Management\Controller\HomeController;
 use Login\Management\Controller\UserController;
 use Login\Management\Middleware\AuthMiddleware;
+use Login\Management\Helper\Auth;
 
 Database::getConnection("production");
 Router::add("GET", "/", HomeController::class, 'index', [AuthMiddleware::class]);

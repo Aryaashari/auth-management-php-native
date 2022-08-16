@@ -7,7 +7,6 @@ use Login\Management\Entity\User;
 use Login\Management\Execption\UserException;
 use \PDOException;
 use Login\Management\Config\Database;
-use Mockery\CountValidator\Exact;
 
 class UserRepository {
 
@@ -16,6 +15,15 @@ class UserRepository {
     public function __construct(\PDO $db)
     {
         $this->dbConn = $db;
+    }
+
+    public function findById(string $id) : ?User {
+        $stmt = $this->dbConn->prepare("SELECT id, name, username, password FROM users WHERE id=?");
+        $stmt->execute([$id]);
+        if ($user = $stmt->fetch()) {
+            return new User($user["id"],$user["name"],$user["username"], $user["password"]);
+        }
+        return null;
     }
 
     public function findByUsername(string $username) : ?User {
