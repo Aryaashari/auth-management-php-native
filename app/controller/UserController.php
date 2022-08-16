@@ -87,4 +87,16 @@ class UserController {
 
     }
 
+
+    public function updateProfileView() :void {
+        $user = $this->sesService->current();
+        View::render("/user/edit-profile.php", [
+            "user" => [
+                "id" => $user->getId(),
+                "name" => $user->getName(),
+                "username" => $user->getUsername()
+            ]
+        ]);
+    }
+
 }
