@@ -52,10 +52,10 @@
               <li>
                 <a href="/profile/update" class="justify-between">
                   Profile
-                  <span class="badge">New</span>
+                  <!-- <span class="badge">New</span> -->
                 </a>
               </li>
-              <li><a>Settings</a></li>
+              <li><a href="/user/password">Settings</a></li>
               <li>
                 <form action="/logout" method="POST">
                   <button type="submit">Logout</button>

@@ -126,4 +126,12 @@ class UserController {
 
     }
 
+
+    public function editPasswordView() : void {
+        $user = $this->sesService->current();
+        View::render("user/password.php", [
+            "userId" => $user->getId() 
+        ]);
+    }
+
 }
