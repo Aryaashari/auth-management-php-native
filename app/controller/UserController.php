@@ -5,6 +5,7 @@ namespace Login\Management\Controller;
 use Login\Management\App\View;
 use Login\Management\Config\Database;
 use Login\Management\Exception\UserException;
+use Login\Management\Model\UserEditPasswordRequest;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Model\UserUpdateRequest;
@@ -132,6 +133,19 @@ class UserController {
         View::render("user/password.php", [
             "userId" => $user->getId() 
         ]);
+    }
+
+    public function editPassword() : void {
+
+        $id = htmlspecialchars($_POST["id"]);
+        $oldPass = htmlspecialchars($_POST["oldPassword"]);
+        $newPass = htmlspecialchars($_POST["newPassword"]);
+        $confirmNewPass = htmlspecialchars($_POST["confirmNewPassword"]);
+
+        $request = new UserEditPasswordRequest($id, $oldPass, $newPass, $confirmNewPass);
+
+        
+
     }
 
 }

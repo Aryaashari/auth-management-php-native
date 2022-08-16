@@ -33,7 +33,7 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="/profile/update" method="POST" class="w-full">
+                <form action="/user/password" method="POST" class="w-full">
                     <div class="form-control mb-3">
                         <input type="hidden" name="id" value="<?= $model["userId"] ?>" class="input input-bordered w-full" />
                         <label class="input-group">
