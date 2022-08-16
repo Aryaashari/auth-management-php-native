@@ -2,8 +2,10 @@
 
 namespace Login\Management\Validation;
 
+use Exception;
 use Login\Management\Entity\User;
 use Login\Management\Exception\UserException;
+use Login\Management\Model\UserEditPasswordRequest;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Model\UserUpdateRequest;
@@ -118,6 +120,35 @@ class UserServiceValidation {
         if (!is_null($user)) {
             throw new UserException("Username '$username' telah terdaftar!");
         }
+
+    }
+
+
+    public static function EditPassValidation(UserEditPasswordRequest $request, UserRepository $userRepo) : User {
+
+        /* -- Validasi Id -- */
+        $user = $userRepo->findById($request->getId());
+        if (is_null($user)) {
+            throw new Exception("User ID tidak valid");
+        }
+
+        /* -- Validasi Old Password -- */
+        if (!password_verify($request->getOldPass(), $user->getPassword())) {
+            throw new Exception("Old Password tidak sesuai");
+        }
+
+        /* -- Validasi New Password -- */
+        // Minimal 8 karakter
+        if (strlen($request->getNewPass()) < 8) {
+            throw new UserException("Password minimal 8 karakter!");
+        }
+
+        // Confirm Password harus sama dengan Password
+        if ($request->getConfirmNewPass() !== $request->getNewPass()) {
+            throw new UserException("Konfirmasi password tidak sesuai!");
+        }
+
+        return $user;
 
     }
 

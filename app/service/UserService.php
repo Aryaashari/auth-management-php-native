@@ -4,6 +4,8 @@ namespace Login\Management\Service;
 
 use Login\Management\Entity\User;
 use Login\Management\Exception\UserException;
+use Login\Management\Model\UserEditPasswordRequest;
+use Login\Management\Model\UserEditPasswordResponse;
 use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Model\UserRegisterResponse;
 use Login\Management\Model\UserLoginRequest;
@@ -79,6 +81,24 @@ class UserService {
             $response = new UserUpdateResponse($newUser->getId(), $newUser->getName(), $newUser->getUsername());
             return $response;
         } catch(\Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    public function editPassword(UserEditPasswordRequest $request) : UserEditPasswordResponse {
+
+        try {
+            $user = UserServiceValidation::EditPassValidation($request, $this->repo);
+            $user->setPassword(password_hash($request->getNewPass(), PASSWORD_BCRYPT));
+
+            $user = $this->repo->edit($user);
+
+            $response = new UserEditPasswordResponse($user->getId(), $user->getName(), $user->getUsername());
+
+            return $response;
+
+        } catch (\Exception $e) {
             throw $e;
         }
 

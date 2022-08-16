@@ -44,6 +44,10 @@ class User {
         $this->id = $id;
     }
 
+    public function setPassword(string $password) : void {
+        $this->password = $password;
+    }
+
     public function setCreateTime(string $dateTime) : void {
         $this->createTime = $dateTime;
     }

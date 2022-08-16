@@ -22,15 +22,15 @@ class UserEditPasswordRequest {
         return $this->id;
     }
 
-    public function getOldPass() : int {
+    public function getOldPass() : string {
         return $this->oldPass;
     }
 
-    public function getNewPass() : int {
+    public function getNewPass() : string {
         return $this->newPass;
     }
 
-    public function getConfirmNewPass() : int {
+    public function getConfirmNewPass() : string {
         return $this->confirmNewPass;
     }
 

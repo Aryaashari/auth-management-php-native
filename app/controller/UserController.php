@@ -144,7 +144,19 @@ class UserController {
 
         $request = new UserEditPasswordRequest($id, $oldPass, $newPass, $confirmNewPass);
 
-        
+        try {
+            $response = $this->userService->editPassword($request);
+
+            View::render("user/password.php", [
+                "success" => "Password berhasil diubah",
+                "userId" => $response->getId()
+            ]);
+        } catch(\Exception $e) {
+            View::render("user/password.php", [
+                "error" => $e->getMessage(),
+                "userId" => $id
+            ]);
+        }
 
     }
 
