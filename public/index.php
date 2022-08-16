@@ -21,5 +21,6 @@ Router::add("POST", "/login", UserController::class, "login", [AuthMiddleware::c
 Router::add("POST", "/logout", UserController::class, "logout", [AuthMiddleware::class]);
 
 Router::add("GET", "/profile/update", UserController::class, "updateProfileView", [AuthMiddleware::class]);
+Router::add("POST", "/profile/update", UserController::class, "updateProfile", [AuthMiddleware::class]);
 
 Router::run();

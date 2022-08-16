@@ -7,6 +7,7 @@ use Login\Management\Config\Database;
 use Login\Management\Exception\UserException;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserRegisterRequest;
+use Login\Management\Model\UserUpdateRequest;
 use Login\Management\Repository\SessionRepository;
 use Login\Management\Repository\UserRepository;
 use Login\Management\Service\SessionService;
@@ -97,6 +98,16 @@ class UserController {
                 "username" => $user->getUsername()
             ]
         ]);
+    }
+
+    public function updateProfile() : void {
+
+        $id = htmlspecialchars($_POST["id"]);
+        $name = htmlspecialchars($_POST["name"]);
+        $username = htmlspecialchars($_POST["username"]);
+
+        $request = new UserUpdateRequest($id, $name, $username);
+
     }
 
 }
