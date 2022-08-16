@@ -108,6 +108,22 @@ class UserController {
 
         $request = new UserUpdateRequest($id, $name, $username);
 
+        try {
+            $response = $this->userService->editProfile($request);
+            View::render("user/edit-profile.php", [
+                "success" => "Barhasil edit profile",
+                "user" => [
+                    "id" => $response->getId(),
+                    "name" => $response->getName(),
+                    "username" => $response->getUsername()
+                ]
+            ]);
+        } catch (\Exception $e) {
+            View::render("user/edit-profile.php", [
+                "error" => $e->getMessage()
+            ]);
+        }
+
     }
 
 }

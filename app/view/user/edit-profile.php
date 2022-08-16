@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h2 class="font-bold text-center text-lg">Edit Profile</h2>
 
-                <?php if (!is_null($model) && isset($model["error"])) : ?>
+                <?php if (isset($model["error"])) : ?>
                     <div class="alert alert-error shadow-lg">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -23,19 +23,29 @@
                         </div>
                     </div>
                 <?php endif; ?>
+                
+                <?php if (isset($model["success"])) : ?>
+                    <div class="alert alert-success shadow-lg">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span><?= $model["success"]; ?></span>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <form action="/profile/update" method="POST" class="w-full">
                     <div class="form-control mb-3">
+                        <input type="hidden" name="id" value="<?= $model["user"]["id"] ?? $_POST["id"] ?>" class="input input-bordered w-full" />
                         <label class="input-group">
                             <span>Name</span>
-                            <input type="text" name="name" value="<?= $model["user"]["name"] ?>" class="input input-bordered w-full" />
+                            <input type="text" name="name" value="<?= $model["user"]["name"] ?? $_POST["name"] ?>" class="input input-bordered w-full" />
                         </label>
                     </div>
 
                     <div class="form-control mb-3">
                         <label class="input-group">
                             <span>Username</span>
-                            <input type="text" name="username" value="<?= $model["user"]["username"] ?>" class="input input-bordered w-full" />
+                            <input type="text" name="username" value="<?= $model["user"]["username"] ?? $_POST["username"] ?>" class="input input-bordered w-full" />
                         </label>
                     </div>
 

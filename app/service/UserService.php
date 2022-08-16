@@ -8,6 +8,8 @@ use Login\Management\Model\UserRegisterRequest;
 use Login\Management\Model\UserRegisterResponse;
 use Login\Management\Model\UserLoginRequest;
 use Login\Management\Model\UserLoginResponse;
+use Login\Management\Model\UserUpdateRequest;
+use Login\Management\Model\UserUpdateResponse;
 use Login\Management\Repository\SessionRepository;
 use Login\Management\Repository\UserRepository;
 use Login\Management\Validation\UserServiceValidation;
@@ -60,6 +62,23 @@ class UserService {
 
             return $response;
         } catch(UserException $e) {
+            throw $e;
+        }
+
+    }
+
+
+    public function editProfile(UserUpdateRequest $request) : UserUpdateResponse {
+
+        try {
+            UserServiceValidation::UpdateValidation($request, $this->repo);
+            $userPass = $this->repo->findById($request->getId())->getPassword();
+            $user = new User($request->getId(), $request->getName(), $request->getUsername(), $userPass);
+            $newUser = $this->repo->edit($user);
+
+            $response = new UserUpdateResponse($newUser->getId(), $newUser->getName(), $newUser->getUsername());
+            return $response;
+        } catch(\Exception $e) {
             throw $e;
         }
 
